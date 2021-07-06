@@ -20,7 +20,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: .
           file: ./build/Dockerfile
+          context: .
           push: true
           tags: ghcr.io/ilcm96/docker-blue-green-deployment:latest
