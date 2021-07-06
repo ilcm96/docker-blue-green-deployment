@@ -23,4 +23,4 @@ jobs:
           context: .
           file: ./build/Dockerfile
           push: true
-          tags: ilcm96/docker-blue-green-deployment/sample-app:latest
+          tags: ilcm96/docker-blue-green-deployment:latest
