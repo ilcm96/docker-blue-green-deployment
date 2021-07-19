@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-push:
+  build-push-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -22,10 +22,7 @@ jobs:
         with:
           push: true
           file: ./build/Dockerfile
-          tags: ghcr.io/ilcm96/dockerblue-green.sh-blue-green-deployment:latest
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
+          tags: ghcr.io/ilcm96/docker-blue-green-deployment:latest
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
