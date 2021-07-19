@@ -1,3 +1,4 @@
 *.exe
 desktop.ini
 .SynologyWorkingDirectory
+test.http

@@ -8,7 +8,11 @@ RUN go mod tidy \
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -ldflags '-s -w' -o main main.go
 
 FROM scratch
+
 COPY --from=builder /tmp/docker-blue-green-deployment/main /
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
+
 ENV TZ=Asia/Seoul
+EXPOSE 3000
+
 CMD ["/main"]
