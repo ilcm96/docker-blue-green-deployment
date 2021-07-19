@@ -22,4 +22,15 @@ jobs:
         with:
           push: true
           file: ./build/Dockerfile
-          tags: ghcr.io/ilcm96/docker-blue-green-deployment:latest
+          tags: ghcr.io/ilcm96/dockerblue-green.sh-blue-green-deployment:latest
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: bash /home/ubuntu/blue-green.sh
