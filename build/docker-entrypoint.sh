@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir /app/static && mkdir /app/staticfiles
+
 echo "======Collecting static files======"
 python3 manage.py collectstatic --noinput
 
