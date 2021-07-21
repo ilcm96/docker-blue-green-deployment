@@ -11,6 +11,7 @@ RUN apt update && \
 RUN pip install --disable-pip-version-check gunicorn django django-crispy-forms environs whitenoise psycopg2-binary
 COPY ./app /app
 COPY ./build/docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 WORKDIR /app
 EXPOSE 8000
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
