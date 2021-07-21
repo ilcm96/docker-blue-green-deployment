@@ -2,3 +2,9 @@
 desktop.ini
 .SynologyWorkingDirectory
 test.http
+# .env
+venv
+.vscode
+.idea
+sources.list
+*.pyc

@@ -1,18 +1,16 @@
-FROM  golang:1.16-buster as builder
-
-WORKDIR /tmp/docker-blue-green-deployment
-COPY ./app .
-
-RUN go mod tidy \
-    && go get -u -d -v ./...
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -ldflags '-s -w' -o main main.go
-
-FROM scratch
-
-COPY --from=builder /tmp/docker-blue-green-deployment/main /
-COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
-
-ENV TZ=Asia/Seoul
-EXPOSE 3000
-
-CMD ["/main"]
+FROM ubuntu:rolling
+ENV PYTHONUNBUFFERED=1
+RUN apt update && \
+    apt install --no-install-suggests --no-install-recommends --yes python3-pip && \
+    pip install --upgrade pip && \
+    apt clean && \
+    rm -rf \
+    /tmp/* \
+    /var/lib/apt/lists/* \
+    /var/tmp/*
+RUN pip install --disable-pip-version-check gunicorn django django-crispy-forms environs whitenoise psycopg2-binary
+COPY ./app /app
+COPY ./build/docker-entrypoint.sh /
+WORKDIR /app
+EXPOSE 8000
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
