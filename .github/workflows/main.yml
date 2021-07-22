@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build-push-deploy:
+  build-push:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -16,18 +16,21 @@ jobs:
           registry: ghcr.io
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
-      - name: Build and push
+      - name: Build and Push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
           file: ./build/Dockerfile
           tags: ghcr.io/ilcm96/docker-blue-green-deployment:latest
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy
-        uses: appleboy/ssh-action@master
+        uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          privateKey: ${{ secrets.SSH_PORT }}
           script: bash /home/ubuntu/blue-green.sh
