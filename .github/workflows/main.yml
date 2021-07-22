@@ -24,6 +24,7 @@ jobs:
           file: ./build/Dockerfile
           tags: ghcr.io/ilcm96/docker-blue-green-deployment:latest
   deploy:
+    needs: build-push
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
