@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
-        uses: garygrossgarten/github-action-ssh@release
+        uses: ilcm96/github-action-ssh@main
         with:
           command: bash /home/ubuntu/blue-green.sh
           host: ${{ secrets.SSH_HOST }}
