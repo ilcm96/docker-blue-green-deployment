@@ -33,5 +33,5 @@ jobs:
           command: bash /home/ubuntu/blue-green.sh
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          privateKey: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
